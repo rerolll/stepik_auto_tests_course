@@ -13,7 +13,6 @@ try:
     browser = webdriver.Chrome()
     browser.get(link)
 
-    # Ваш код, который заполняет обязательные поля
     input1 = browser.find_element(By.CSS_SELECTOR, ".first_block .first")
     input1.send_keys("Ivan")
 
