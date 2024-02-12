@@ -1,2 +1,3 @@
 selenium==4.*
 pyperclip==3.0.9
+pytest==7.1.2
