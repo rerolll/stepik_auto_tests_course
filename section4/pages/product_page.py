@@ -14,7 +14,7 @@ class ProductPage(BasePage):
         ), "Login link is not presented"
 
     def click_button_add_to_basket(self):
-        self.find_element(*ProductPageLocators.BUTTON_ADD_TO_BASCKET).click()
+        self.browser.find_element(*ProductPageLocators.BUTTON_ADD_TO_BASCKET).click()
 
     def solve_quiz_and_get_code(self):
         alert = self.browser.switch_to.alert
@@ -29,3 +29,21 @@ class ProductPage(BasePage):
             alert.accept()
         except NoAlertPresentException:
             print("No second alert presented")
+
+    def should_be_added_book_name_message(self):
+        assert self.is_element_present(*ProductPageLocators.MESSAGE_ADD_PRODUCT_NAME), "Нет сообщения об успешном добавления товара в корзину"
+
+    def should_be_added_book_name_is_correct(self):
+        added_message = self.browser.find_element(*ProductPageLocators.MESSAGE_ADD_PRODUCT_NAME)
+        product_name = self.browser.find_element(*ProductPageLocators.PRODUCT_NAME)
+        assert product_name.text in added_message.text, "Название продукта не соответсвует добавленному в корзину"
+
+    def should_be_added_book_price_message(self):
+        assert self.is_element_present(*ProductPageLocators.MESSAGE_ADD_PRODUCT_PRICE), "Нет сообщения со стоимостью корзины"
+
+    def should_be_added_book_price_is_correct(self):
+        product_price = self.browser.find_element(*ProductPageLocators.PRODUCT_PRICE)
+        added_product_price = self.browser.find_element(*ProductPageLocators.MESSAGE_ADD_PRODUCT_PRICE)
+        assert product_price.text in added_product_price.text, "Цена добавленного продукта не соответствует цене выбранного продукта"
+
+    
